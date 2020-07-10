@@ -5,14 +5,19 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 
 public class Server implements Runnable {
 
-	private JPanel orderListPanel;
-
-	public Server(JPanel orderListPanel) {
-		this.orderListPanel = orderListPanel;
+	private JPanel orderLiveListPanel;
+	private JPanel liveListScrollpanel;
+	private JScrollPane scroll;
+	
+	public Server(JPanel orderLiveListPanel, JPanel liveListScrollpanel, JScrollPane scroll) {
+		this.orderLiveListPanel = orderLiveListPanel;
+		this.liveListScrollpanel = liveListScrollpanel;
+		this.scroll = scroll;
 	}
 
 	@Override
@@ -36,7 +41,7 @@ public class Server implements Runnable {
 		try {
 			while(true) {
 				socket = server.accept();
-				ServerThread st = new ServerThread(socket, orderListPanel, laHeight);
+				ServerThread st = new ServerThread(socket, orderLiveListPanel, laHeight, liveListScrollpanel, scroll);
 				Thread serverThread = new Thread(st);
 				serverThread.start();
 			}

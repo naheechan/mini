@@ -1,5 +1,6 @@
 package thread;
 
+import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
@@ -12,19 +13,24 @@ import java.util.StringTokenizer;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 public class ServerThread implements Runnable {
 
 	private Socket socket;
-	private JPanel orderListPanel;
+	private JPanel orderLiveListPanel;
 	private int[] laHeight;
+	private JPanel liveListScrollpanel;
+	private JScrollPane scroll;
 	
 
-	public ServerThread(Socket socket, JPanel orderListPanel, int[] laHeight) {
+	public ServerThread(Socket socket, JPanel orderLiveListPanel, int[] laHeight, JPanel liveListScrollpanel, JScrollPane scroll) {
 		super();
 		this.socket = socket;
-		this.orderListPanel = orderListPanel;
+		this.orderLiveListPanel = orderLiveListPanel;
 		this.laHeight = laHeight;
+		this.liveListScrollpanel = liveListScrollpanel;
+		this.scroll = scroll;
 	}
 
 	@Override
@@ -55,14 +61,14 @@ public class ServerThread implements Runnable {
 					JLabel la = new JLabel(st.nextToken());
 					la.setBounds(5, 5+laHeight[0], 500, 50);
 					laHeight[0]+=20;
-					orderListPanel.add(la);
+					liveListScrollpanel.add(la);
 				}
 				JButton deliveryBtn = new JButton("배달");
 				deliveryBtn.setBounds(550, laHeight[0]-5, 100, 25);
-				orderListPanel.add(deliveryBtn);
+				liveListScrollpanel.add(deliveryBtn);
 				JLabel justLine = new JLabel("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
 				justLine.setBounds(5, laHeight[0]+=15, 800, 20);
-				orderListPanel.add(justLine);
+				liveListScrollpanel.add(justLine);
 				deliveryBtn.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
@@ -73,14 +79,13 @@ public class ServerThread implements Runnable {
 						pw.flush();
 					}
 				});
+				
+				orderLiveListPanel.add(scroll);
 
-
-
-
-				orderListPanel.repaint();
-				orderListPanel.validate();
-
+				orderLiveListPanel.repaint();
+				orderLiveListPanel.validate();
 				//주문 들어온거 화면에 표시하는 부분
+				
 
 				System.out.println(socket.getInetAddress().getHostAddress()+"님의 메세지 : "+receiveMessage);
 				pw.println("서버에 정상적으로 메세지전달");

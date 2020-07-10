@@ -290,7 +290,7 @@ public class DetailContentPanel extends JPanel implements ActionListener, Change
 		detailPanel.setPreferredSize(size);
 		scroll.setViewportView(detailPanel); 
 		scroll.getVerticalScrollBar().setUnitIncrement(20);
-		scroll.setBounds(0, 0, 1010, 450);		
+		scroll.setBounds(0, 0, 1010, 450);	
 		add(scroll);
 		
 		setVisible(true);

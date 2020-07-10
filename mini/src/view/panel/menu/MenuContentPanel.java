@@ -1,6 +1,7 @@
 package view.panel.menu;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import model.vo.OrderCoffeeVO;
 import thread.Client;
@@ -64,7 +66,7 @@ public class MenuContentPanel extends JPanel {
 		listTitle.setBounds(40, 200, 150, 50);
 
 		JPanel orderListPanel = new JPanel();
-		orderListPanel.setBounds(30, 240, 700, 200);
+//		orderListPanel.setBounds(30, 240, 700, 200);
 		orderListPanel.setLayout(null);
 		orderListPanel.setBackground(Color.white);
 		if(orderList!=null) {
@@ -75,6 +77,13 @@ public class MenuContentPanel extends JPanel {
 				amount += orderList.get(i).getPrice();
 			}
 		}
+		JScrollPane scroll = new JScrollPane(orderListPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		Dimension size = new Dimension();
+		size.setSize(1000, 1000);
+		orderListPanel.setPreferredSize(size);
+		scroll.setViewportView(orderListPanel); 
+		scroll.getVerticalScrollBar().setUnitIncrement(20);
+		scroll.setBounds(30, 240, 700, 200);
 
 		JLabel amountLa = new JLabel("주문 금액 : 0원");
 		amountLa.setText("주문금액 : "+amount+"원");
@@ -174,7 +183,7 @@ public class MenuContentPanel extends JPanel {
 		add(title4);
 		add(title5);
 		add(listTitle);
-		add(orderListPanel);
+		add(scroll);
 		add(amountLa);
 		add(orderBtn);
 		add(cancelBtn);

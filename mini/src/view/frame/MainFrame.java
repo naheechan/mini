@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import model.vo.OrderCoffeeVO;
-import testAdmin.AdminPanel;
+import view.panel.adminOrderManagement.OrderPanel;
 import view.panel.menu.MenuPanel;
 
 public class MainFrame extends JFrame {
@@ -47,7 +47,7 @@ public class MainFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				remove(loginPanel);
-				add(new AdminPanel(f));
+				add(new OrderPanel(f));
 				validate();
 			}
 		});
